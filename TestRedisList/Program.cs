@@ -8,9 +8,9 @@ namespace TestRedisList
         static void Main(string[] args)
         {
             const string clickkey = "clickcount";
-            RedisHelper.Initialization(new CSRedis.CSRedisClient("127.0.0.1:6379,defaultDatabase=1"));
+            RedisHelper.Initialization(new CSRedis.CSRedisClient("192.168.1.158:6379,defaultDatabase=1"));
 
-            PipelineMethod(clickkey);
+            //PipelineMethod(clickkey);
 
             LtrimMethod(clickkey);
 
@@ -90,11 +90,11 @@ namespace TestRedisList
         {
             Stopwatch sp = new Stopwatch();
             sp.Start();
-            var keylength = RedisHelper.LLen(clickkey);
-            sp.Stop();
-            Console.WriteLine("获取key长度:" + keylength + " 耗时:" + sp.ElapsedMilliseconds);
-            sp.Restart();
-            var range = RedisHelper.LRange(clickkey, 0, keylength - 1 - hasvalue);// LRange<int> 拆箱耗时 stop:最后一个数据也会回去,需要-1
+            //var keylength = RedisHelper.LLen(clickkey);
+            //sp.Stop();
+            //Console.WriteLine("获取key长度:" + keylength + " 耗时:" + sp.ElapsedMilliseconds);
+            //sp.Restart();
+            var range = RedisHelper.LRange(clickkey, 0, -1);// LRange<int> 拆箱耗时 stop:最后一个数据也会回去,需要-1
             sp.Stop();
             Console.WriteLine("获取key数据:" + range.Length + " 耗时:" + sp.ElapsedMilliseconds);
             return range.Length;
